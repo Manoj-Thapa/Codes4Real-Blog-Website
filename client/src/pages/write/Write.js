@@ -14,6 +14,7 @@ export default function Write() {
   const editor = useRef(null);
   const [content, setContent] = useState("");
   const [err, setErr] = useState(false);
+  const [titleerr, setTitleErr] = useState(false);
   const config = {
     readonly: false,
     height: 400,
@@ -42,6 +43,10 @@ export default function Write() {
       await axios.post("/api/categories", { name: cat });
       navigate("/post/" + res.data._id);
     } catch (err) {
+      if (err.response.data.code) {
+        setTitleErr(true);
+        return;
+      }
       setErr(true);
     }
   };
@@ -55,6 +60,7 @@ export default function Write() {
         <label htmlFor="title" className="form-label fs-3 my-2 text-bold">
           Title
         </label>
+        <div className="mandatory">*</div>
         <input
           type="text"
           placeholder="Title"
@@ -67,6 +73,7 @@ export default function Write() {
         <label htmlFor="category" className="form-label fs-3 my-2 text-bold">
           Category
         </label>
+        <div className="mandatory">*</div>
         <input
           type="text"
           placeholder="Category"
@@ -90,13 +97,15 @@ export default function Write() {
           style={{ display: "none" }}
           onChange={(e) => setFile(e.target.files[0])}
         />
+        <br />
 
         <label
           htmlFor="description"
-          className="form-label fs-3 my-2 text-bold d-block"
+          className="form-label fs-3 my-2 text-bold"
         >
           Description
         </label>
+        <div className="mandatory">*</div>
         <JoditEditor
           ref={editor}
           value={content}
@@ -106,6 +115,11 @@ export default function Write() {
           onChange={(newContent) => {}}
         />
 
+        <div className="mt-2">
+          <div className="mandatory">*</div>
+          <span className="text-bold">indicates required field</span>
+        </div>
+
         <button
           className="btn btn-dark text-white w-25 p-2 fs-5 my-3"
           type="submit"
@@ -113,7 +127,16 @@ export default function Write() {
         >
           Publish
         </button>
-        {err && <p className="text-center text-danger text-bold">Title already exist</p>}
+        {err && (
+          <p className="text-center text-danger text-bold mt-3">
+            Every field is mandatory
+          </p>
+        )}
+        {titleerr && (
+          <p className="text-center text-danger text-bold mt-3">
+            Title already exist
+          </p>
+        )}
       </form>
     </div>
   );
