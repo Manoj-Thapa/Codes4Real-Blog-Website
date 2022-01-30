@@ -17,8 +17,10 @@ export default function SinglePost() {
   const navigate = useNavigate();
   const editor = useRef(null);
   const { user } = useContext(Context);
-  const [err, setErr] = useState(false);
-  const PF = "http:localhost:5000/images/";
+  const [titleerr, setTitleErr] = useState(false);
+  const [posterr, setPostErr] = useState(false);
+  const [deleteerr, setDeleteErr] = useState(false);
+  const PF = "https://codes4real.herokuapp.com/images/";
   const config = {
     readonly: false,
     height: 400,
@@ -26,7 +28,9 @@ export default function SinglePost() {
 
   useEffect(() => {
     const getPost = async () => {
-      const res = await axios.get("/api/posts/" + path);
+      const res = await axios.get(
+        "https://codes4real.herokuapp.com/api/posts/" + path
+      );
       setPost(res.data);
       setTitle(res.data.title);
       setContent(res.data.desc);
@@ -36,27 +40,43 @@ export default function SinglePost() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`/api/posts/${post._id}`, {
-        data: { username: user.username },
-      });
-      await axios.post("/api/categories/removeCat", {
-        rcat: post.categories[0],
-      });
+      if (!post._id) setDeleteErr(true);
+      await axios.delete(
+        `https://codes4real.herokuapp.com/api/posts/${post._id}`,
+        {
+          data: { username: !user ? null : user.username },
+        }
+      );
+      await axios.post(
+        "https://codes4real.herokuapp.com/api/categories/removeCat",
+        {
+          rcat: post.categories[0],
+        }
+      );
       navigate("/");
-    } catch (err) {}
+    } catch (err) {
+      if (err.response.status === 401) setDeleteErr(true);
+    }
   };
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`/api/posts/${post._id}`, {
-        username: user.username,
-        title,
-        desc: content,
-      });
+      await axios.put(
+        `https://codes4real.herokuapp.com/api/posts/${post._id}`,
+        {
+          username: !user ? null : user.username,
+          title,
+          desc: content,
+        }
+      );
       setUpdateMode(false);
       window.location.replace(`/post/${post._id}`);
     } catch (err) {
-      setErr(true);
+      if (err.response.status === 401) {
+        setPostErr(true);
+        return;
+      }
+      setTitleErr(true);
     }
   };
 
@@ -152,8 +172,18 @@ export default function SinglePost() {
           Update
         </button>
       )}
-      {err && (
+      {titleerr && (
         <p className="text-center text-danger text-bold">Title already exist</p>
+      )}
+      {posterr && (
+        <p className="text-center text-danger text-bold">
+          You can update only your Post
+        </p>
+      )}
+      {deleteerr && (
+        <p className="text-center text-danger text-bold">
+          You can delete only your Post
+        </p>
       )}
     </div>
   );
