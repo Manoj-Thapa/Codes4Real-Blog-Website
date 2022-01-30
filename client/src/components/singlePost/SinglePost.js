@@ -20,7 +20,7 @@ export default function SinglePost() {
   const [titleerr, setTitleErr] = useState(false);
   const [posterr, setPostErr] = useState(false);
   const [deleteerr, setDeleteErr] = useState(false);
-  const PF = "https://codes4real.herokuapp.com/images/";
+  const PF = "http://localhost:5000/images/";
   const config = {
     readonly: false,
     height: 400,
@@ -29,7 +29,7 @@ export default function SinglePost() {
   useEffect(() => {
     const getPost = async () => {
       const res = await axios.get(
-        "https://codes4real.herokuapp.com/api/posts/" + path
+        "/api/posts/" + path
       );
       setPost(res.data);
       setTitle(res.data.title);
@@ -42,13 +42,13 @@ export default function SinglePost() {
     try {
       if (!post._id) setDeleteErr(true);
       await axios.delete(
-        `https://codes4real.herokuapp.com/api/posts/${post._id}`,
+        `/api/posts/${post._id}`,
         {
           data: { username: !user ? null : user.username },
         }
       );
       await axios.post(
-        "https://codes4real.herokuapp.com/api/categories/removeCat",
+        "/api/categories/removeCat",
         {
           rcat: post.categories[0],
         }
@@ -62,7 +62,7 @@ export default function SinglePost() {
   const handleUpdate = async () => {
     try {
       await axios.put(
-        `https://codes4real.herokuapp.com/api/posts/${post._id}`,
+        `/api/posts/${post._id}`,
         {
           username: !user ? null : user.username,
           title,
