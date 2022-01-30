@@ -1,0 +1,17 @@
+.fileinput {
+  margin-top: 15px;
+}
+
+.file-logo {
+  cursor: pointer;
+}
+
+.writeImg {
+  height: 800px;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.category-input {
+  margin-bottom: 20px;
+}

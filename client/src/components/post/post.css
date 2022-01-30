@@ -1,0 +1,27 @@
+.card-design {
+  height: 400px;
+  position: relative;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.img-design {
+  height: 280px;
+}
+
+.text-title {
+  text-decoration: none;
+  color: #212529;
+}
+
+.text-title:hover {
+  color: #212529;
+}
+
+.text-design {
+  font-size: 15px;
+}
+
+.text-author {
+  position: absolute;
+  right: 10px;
+}

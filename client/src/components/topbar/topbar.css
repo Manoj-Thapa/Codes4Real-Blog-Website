@@ -1,0 +1,50 @@
+.logo {
+  width: 120px;
+  margin: 16px;
+}
+
+.items {
+  font-size: 20px;
+  margin: 0 20px;
+  cursor: pointer;
+}
+
+.logout-absolute {
+  position: absolute;
+  right: 50px;
+}
+
+.topImg-absolute {
+  position: absolute;
+  right: 20px;
+  margin: 8px 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 990px) {
+  .navbar-relative {
+    position: static;
+  }
+  .logout-absolute {
+    position: static;
+  }
+
+  .container-fluid-relative {
+    position: relative;
+  }
+
+  .topImg-absolute {
+    position: absolute;
+    top: 60px;
+    right: 80px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,21 @@
+.author-name:hover {
+  color: #000000;
+}
+
+.singlepostdesc {
+  text-align: justify;
+}
+
+.singlePostImg {
+  height: 600px;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.singleposttitle {
+  margin-top: 24px;
+}
+
+input[id="title"] {
+  margin-bottom: 20px;
+}

@@ -1,0 +1,22 @@
+.wrapper {
+  width: 40%;
+  margin: 40px auto;
+  padding: 40px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.text-bold {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+input {
+  height: 50px;
+}
+
+@media only screen and (max-width: 800px) {
+  .wrapper {
+    width: 100%;
+    padding: 40px;
+  }
+}
