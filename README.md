@@ -15,7 +15,7 @@ For Live Demo go to https://codes4real.netlify.app
     
     * One cannot edit or delete posts created by other users
     
-  * Manage Blog posts with basic functionalities:
+  * Manage Blog posts with basic functionalities
 
     * Create, edit and delete posts
     
